@@ -20,9 +20,14 @@
 			<!--数据表格-->
 			<el-table v-loading="loading" :data="tableData">
 				<el-table-column label="卡密" align="center"  prop="cardCode"/>
-				<el-table-column label="设备编号" align="center" prop="deviceId" />
+				<el-table-column label="设备编号" align="center" prop="deviceCode" />
 				<el-table-column label="超时时间" align="center" prop="sessionTimeout" />
 				<el-table-column label="创建时间" align="center" prop="createdAt" />
+        <el-table-column label="操作" align="center">
+          <template #default="scope">
+            <el-button type="primary" size="small" @click="onClickOffline(scope.row)">强制下线</el-button>
+          </template>
+        </el-table-column>
 			</el-table>
 			<!-- 分页设置-->
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" class="mt15" :pager-count="5" :page-sizes="[10, 20, 30, 50]" v-model:current-page="queryParams.pageIndex" background v-model:page-size="queryParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total"> </el-pagination>
@@ -32,7 +37,8 @@
 
 <script lang="ts">
 import { toRefs, reactive, onMounted } from 'vue';
-import { listCardSession }  from '/@/api/verify/cardSession';
+import {listCardSession, offlineCardSession} from '/@/api/verify/cardSession';
+import {ElMessage} from "element-plus";
 export default {
 	name: 'cardSessionList',
 	setup() {
@@ -87,6 +93,13 @@ export default {
 			state.queryParams.pageSize = val;
 			handleQuery();
 		};
+    const onClickOffline = async (row:any) => {
+      const id = row.id
+      let res = await offlineCardSession({id: id})
+      if (res.code === 0) {
+        ElMessage.success('下线成功');
+      }
+    }
     onMounted(() => {
       handleQuery();
     })
@@ -95,6 +108,7 @@ export default {
 			handleCurrentChange,
 			handleSizeChange,
 			resetQuery,
+      onClickOffline,
 			...toRefs(state),
 		};
 	},

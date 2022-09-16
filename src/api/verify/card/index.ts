@@ -62,6 +62,15 @@ export function delCard(query:any) {
 	})
 }
 
+// 下载导入模板
+export function downloadCardTemplate() {
+	return request({
+		url: '/api/v1/card/download-template',
+		method: 'get',
+		responseType: 'blob',
+	})
+}
+
 // 在线列表
 export function listCardSession(query:any) {
 	return request({

@@ -23,7 +23,7 @@ export default defineComponent({
 		const { proxy } = getCurrentInstance() as any;
 		const state = reactive({
 			showImportDialog: false,
-			uploadUrl: (import.meta.env.VITE_API_URL as any) + '/card/import',
+			uploadUrl: (import.meta.env.VITE_API_URL as any) + 'api/v1/card/import',
 			fileList: [],
 			ruleForm: {
 				id: undefined,
@@ -47,6 +47,7 @@ export default defineComponent({
 			},
 		});
 		const openImportDialog = (row: any) => {
+      state.fileList = []
 			state.ruleForm = { ...row };
 			state.showImportDialog = true;
 		};

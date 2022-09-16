@@ -29,7 +29,10 @@ service.interceptors.response.use(
 	(response) => {
 		// 对响应数据做点什么
 		const res = response.data;
-		const code = response.data.code
+		const code = response.data.code;
+		if (response.headers["content-type"] === 'application/force-download' && response.status === 200) {
+			return res
+		}
 		if (code === 401) {
 			ElMessageBox.alert('登录状态已过期，请重新登录', '提示', {confirmButtonText:'确定'})
 				.then(() => {

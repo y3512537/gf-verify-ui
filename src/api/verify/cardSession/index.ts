@@ -8,3 +8,12 @@ export function listCardSession(query:any) {
 		params: query
 	})
 }
+
+// 强制下线
+export function offlineCardSession(data:any) {
+	return request({
+		url: '/api/v1/card-session/offline',
+		method: 'post',
+		data: data
+	})
+}
