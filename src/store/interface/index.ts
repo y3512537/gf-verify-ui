@@ -95,4 +95,11 @@ export interface RootStateTypes {
 	tagsViewRoutes: TagsViewRoutesState;
 	userInfos: UserInfosState;
 	requestOldRoutes: RequestOldRoutesState;
+	dict: DictState;
+}
+
+
+export interface DictState {
+	isSetDict: boolean,
+	dictMap: Record<string, any>
 }

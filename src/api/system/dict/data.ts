@@ -68,3 +68,12 @@ export function deleteData(ids:number[]) {
         data:{ids}
     })
 }
+
+
+export function listSimpleAll(params = {}) {
+    return request({
+        url: '/api/v1/system/dict/data/simple/list',
+        method: 'get',
+        params:params,
+    })
+}

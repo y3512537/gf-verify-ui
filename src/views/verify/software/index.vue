@@ -74,9 +74,11 @@ import AddSoftware from './component/addSoftware.vue';
 import EditSoftware from './component/editSoftware.vue';
 import { ElMessage, ElMessageBox, FormInstance } from 'element-plus';
 import { SoftwareRow } from '/@/types/software';
+import {useStore} from "/@/store";
 
 const addSoftware = ref();
 const editSoftware = ref();
+const store = useStore();
 const queryFormRef = ref<FormInstance>();
 const { proxy } = getCurrentInstance() as any;
 const state = reactive({
@@ -106,6 +108,7 @@ const resetQueryForm = (formEl: FormInstance | undefined) => {
 /** 查询软件列表 */
 const handleQuery = () => {
 	state.loading = true;
+  console.log(store.state.dict.isSetDict)
 	listSoftware(state.queryParams).then((response: any) => {
 		state.tableData = response.data.list;
 		state.total = response.data.total;

@@ -17,7 +17,7 @@
 				</el-col>
 				<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 					<el-form-item label="到期时间" prop="expireTime">
-						<el-date-picker v-model="ruleForm.genTime" type="datetime" placeholder="到期时间" />
+						<el-date-picker v-model="ruleForm.expireTime" type="datetime" placeholder="到期时间" />
 					</el-form-item>
 				</el-col>
 				<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">

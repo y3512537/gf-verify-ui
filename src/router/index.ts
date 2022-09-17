@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import { store } from '/@/store/index.ts';
+import {store} from '/@/store/index.ts';
 import { Session } from '/@/utils/storage';
 import { NextLoading } from '/@/utils/loading';
 import { staticRoutes, dynamicRoutes } from '/@/router/route';
@@ -186,8 +186,8 @@ export async function resetRoute() {
 const { isRequestRoutes } = store.state.themeConfig.themeConfig;
 // 前端控制路由：初始化方法，防止刷新时路由丢失
 if (!isRequestRoutes) initFrontEndControlRoutes();
-
 import { isInit } from '/@/api/system/dbInit';
+import {listSimpleAll} from "/@/api/system/dict/data";
 // 路由加载前
 router.beforeEach(async (to, from, next) => {
 	NProgress.configure({ showSpinner: false });
@@ -213,13 +213,17 @@ router.beforeEach(async (to, from, next) => {
 			}
 		} catch (e) {}
 	}
-
 	// 正常流程
 	const token = Session.get('token');
 	if (to.path === '/login' && !token) {
 		next();
 		NProgress.done();
 	} else {
+		if (store.state.dict.isSetDict) {
+			const res = await listSimpleAll()
+			await store.dispatch('dict/setDictMap',res)
+			await store.dispatch('dict/setIsSetDict',true)
+		}
 		if (!token) {
 			next(`/login?redirect=${to.path}&params=${JSON.stringify(to.query ? to.query : to.params)}`);
 			Session.clear();
