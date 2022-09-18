@@ -41,14 +41,14 @@
 				<el-table-column prop="softwareName" label="所属软件" align="center" width="100" />
 				<el-table-column prop="versionNumber" label="版本号" align="center" />
 				<el-table-column prop="isPublish" label="是否发布" align="center">
-					<template #default="scope">
-						<span>{{ scope.row.isPublish == 1 ? '是' : '否' }}</span>
-					</template>
+          <template #default="scope">
+            <DictTag :type="DICT_TYPE.SYS_YES_NO" :value="scope.row.isPublish"/>
+          </template>
 				</el-table-column>
-				<el-table-column prop="link" label="链接" align="center"> </el-table-column>
+				<el-table-column prop="link" label="链接" align="center"/>
 				<el-table-column prop="storeType" label="存储类型" align="center">
 					<template #default="scope">
-						<span>{{ fileterStoreTypes(scope.row.storeType) }}</span>
+            <DictTag :type="DICT_TYPE.VERIFY_VERSION_STORE_TYPE" :value="scope.row.storeType"/>
 					</template>
 				</el-table-column>
 				<el-table-column prop="updatedAt" label="更新时间" align="center" width="160" />
@@ -86,7 +86,6 @@ import { ElMessage, ElMessageBox, FormInstance } from 'element-plus';
 import { delVersion, listVersion } from '/@/api/verify/version';
 import { listSoftware } from '/@/api/verify/software';
 import EditVersion from './component/editVersion.vue';
-import { getDicts } from '/@/api/system/dict/data';
 import { DICT_TYPE } from '/@/utils/dict';
 import { DictDataRow } from '/@/types/version';
 const editVersion = ref();
@@ -142,16 +141,6 @@ const handleQuery = () => {
 	});
 };
 
-const fileterStoreTypes = (value: any) => {
-	let storeType = storeTypeList.values.find((storeType: any) => {
-		return storeType.key == value;
-	});
-	if (storeType) {
-		return storeType.value;
-	}
-	return '';
-};
-
 /** 删除版本*/
 const handleDelete = (row: any) => {
 	ElMessageBox({
@@ -191,16 +180,8 @@ const onOpenEditVersion = (row: any) => {
 	editVersion.value.openDialog(softwareList.value, state.queryParams.softwareId, row);
 };
 
-const getStoreTypeList = () => {
-	getDicts(DICT_TYPE.VERIFY_VERISON_STORE_TYPE).then((res: any) => {
-		if (res.code === 0) {
-			storeTypeList.values = storeTypeList.concat(res.data.values);
-		}
-	});
-};
 
 onMounted(() => {
-	getStoreTypeList();
 	getSoftwareList();
 	handleQuery();
 	proxy.mittBus.on('onEditVersion', () => {

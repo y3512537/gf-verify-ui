@@ -15,7 +15,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="软件状态">
-							<el-switch v-model="ruleForm.softwareStatus" active-text="启用" inactive-text="冻结" />
+							<el-switch v-model="ruleForm.softwareStatus" active-text="启用" inactive-text="禁用" :active-value="1" :inactive-value="0"/>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
@@ -30,12 +30,12 @@
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="顶号登录">
-							<el-switch v-model="ruleForm.isReplace" active-text="是" inactive-text="否" />
+							<el-switch v-model="ruleForm.isReplace" active-text="是" inactive-text="否" :active-value="1" :inactive-value="0"/>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="开启试用">
-							<el-switch v-model="ruleForm.openTrial" active-text="是" inactive-text="否" />
+							<el-switch v-model="ruleForm.openTrial" active-text="是" inactive-text="否" :active-value="1" :inactive-value="0"/>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20" v-if="ruleForm.openTrial">
@@ -124,7 +124,7 @@ export default defineComponent({
 				});
 				closeDialog();
 			});
-			
+
 		};
 		return {
 			openDialog,

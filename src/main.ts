@@ -22,6 +22,9 @@ directive(app);
 other.elSvg(app);
 
 app.component('pagination', pagination)
+import { DictTag } from '/@/components/dictTag'
+import {getDictDatas} from "/@/utils/dict";
+app.component('DictTag', DictTag)
 
 app.use(router)
     .use(store, key)
@@ -36,4 +39,5 @@ app.config.globalProperties.getUpFileUrl=getUpFileUrl
 app.config.globalProperties.handleTree=handleTree
 app.config.globalProperties.useDict=useDict
 app.config.globalProperties.selectDictLabel=selectDictLabel
+app.config.globalProperties.getDictDatas=getDictDatas
 app.config.globalProperties.mittBus = mitt();

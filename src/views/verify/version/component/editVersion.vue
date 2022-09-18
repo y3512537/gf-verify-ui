@@ -22,9 +22,10 @@
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="存储方式" prop="storeType">
-							<el-select v-model="ruleForm.storeType" placeholder="选择一种存储方式">
-								<el-option v-for="item in storeTypeList" :key="item.key" :label="item.value" :value="item.key" />
-							</el-select>
+              <el-select v-model="ruleForm.storeType" placeholder="请选择存储方式">
+                <el-option v-for="dict in typeFormat(storeType)"
+                           :key="dict.dictValue" :label="dict.dictLabel" :value="dict.dictValue" />
+              </el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20" v-if="ruleForm.storeType !== '1'">
@@ -56,8 +57,9 @@
 
 <script lang="ts">
 import { ElMessage, FormInstance, FormRules } from 'element-plus';
-import { computed, defineComponent, getCurrentInstance, reactive, ref, toRefs } from 'vue';
+import {computed, defineComponent, getCurrentInstance, reactive, ref, toRefs} from 'vue';
 import { addVersion, editVersion } from '/@/api/verify/software';
+import {DICT_TYPE} from "/@/utils/dict";
 
 export default defineComponent({
 	name: 'editVersionModule',
@@ -69,6 +71,7 @@ export default defineComponent({
 			return props.storeTypes.values;
 		});
 		const softwareList = ref();
+    const storeType = DICT_TYPE.VERIFY_VERSION_STORE_TYPE
 		const state = reactive({
 			isShowDialog: false,
 			ruleForm: {
@@ -99,8 +102,8 @@ export default defineComponent({
 			}
 			if (row) {
 				state.ruleForm = { ...row };
-				state.ruleForm.storeType = row.storeType + '';	
-			}	
+				state.ruleForm.storeType = row.storeType + '';
+			}
 			state.isShowDialog = true;
 		};
 		// 关闭弹窗
@@ -132,6 +135,9 @@ export default defineComponent({
 				closeDialog();
 			});
 		};
+    const typeFormat = (dictType: string) => {
+      return proxy.getDictDatas(dictType);
+    };
 		return {
 			rules,
 			ruleFormRef,
@@ -140,6 +146,8 @@ export default defineComponent({
 			openDialog,
 			onSubmit,
 			onCancel,
+      typeFormat,
+      storeType,
 			...toRefs(state),
 		};
 	},

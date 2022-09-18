@@ -11,6 +11,19 @@
         <el-form-item label="数据键值" prop="dictValue">
           <el-input v-model="ruleForm.dictValue" placeholder="请输入数据键值" />
         </el-form-item>
+        <el-form-item label="显示样式" prop="listClass">
+          <el-select v-model="ruleForm.listClass" placeholder="请选择回显样式">
+            <el-option label="default" value="default"/>
+            <el-option label="success" value="success"/>
+            <el-option label="info" value="info"/>
+            <el-option label="warning" value="warning"/>
+            <el-option label="danger" value="danger"/>
+          </el-select>
+<!--          <el-input v-model="ruleForm.listClass" placeholder="请输入选择样式" />-->
+        </el-form-item>
+        <el-form-item label="自定义样式" prop="cssClass">
+          <el-input v-model="ruleForm.cssClass" placeholder="自定义显示样式" />
+        </el-form-item>
         <el-form-item label="显示排序" prop="dictSort">
           <el-input-number v-model="ruleForm.dictSort" controls-position="right" :min="0" />
         </el-form-item>
@@ -53,6 +66,8 @@ interface RuleFormState {
   dictLabel: string;
   dictValue: string;
   dictSort:number;
+  listClass:string,
+  cssClass: string,
   isDefault:number;
   status:number;
   remark:string;
@@ -81,6 +96,8 @@ export default defineComponent({
         dictLabel: '',
         dictValue: '',
         dictSort: 0,
+        listClass: '',
+        cssClass:'',
         isDefault:0,
         status: 1,
         remark: '',
@@ -115,6 +132,8 @@ export default defineComponent({
         dictLabel: '',
         dictValue: '',
         dictSort: 0,
+        listClass: '',
+        cssClass:'',
         isDefault:0,
         status: 1,
         remark: '',

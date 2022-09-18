@@ -219,11 +219,6 @@ router.beforeEach(async (to, from, next) => {
 		next();
 		NProgress.done();
 	} else {
-		if (store.state.dict.isSetDict) {
-			const res = await listSimpleAll()
-			await store.dispatch('dict/setDictMap',res)
-			await store.dispatch('dict/setIsSetDict',true)
-		}
 		if (!token) {
 			next(`/login?redirect=${to.path}&params=${JSON.stringify(to.query ? to.query : to.params)}`);
 			Session.clear();
@@ -233,6 +228,11 @@ router.beforeEach(async (to, from, next) => {
 			next('/home');
 			NProgress.done();
 		} else {
+			if (!store.state.dict.isSetDict) {
+				const res = await listSimpleAll()
+				await store.dispatch('dict/setDictMap',res)
+				await store.dispatch('dict/setIsSetDict',true)
+			}
 			if (store.state.routesList.routesList.length === 0) {
 				if (isRequestRoutes) {
 					// 后端控制路由：路由数据初始化，防止刷新时丢失

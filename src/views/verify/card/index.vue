@@ -74,13 +74,13 @@
         </el-table-column>
         <el-table-column prop="cardStatus" label="状态" align="center">
           <template #default="scope">
-            <span>{{ scope.row.cardStatus == 1 ? '正常' : '冻结' }}</span>
+            <DictTag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.cardStatus"/>
           </template>
         </el-table-column>
         <el-table-column prop="multiOnline" label="多开上限" align="center"></el-table-column>
         <el-table-column prop="isReplace" label="顶号" align="center">
           <template #default="scope">
-            <span>{{ scope.row.isReplace == 1 ? '是' : '否' }}</span>
+            <DictTag :type="DICT_TYPE.SYS_YES_NO" :value="scope.row.isReplace"/>
           </template>
         </el-table-column>
         <el-table-column prop="genTime" label="生成时间" align="center" width="150"/>
@@ -136,6 +136,7 @@ import AddCard from './component/addCard.vue';
 import EditCard from './component/editCard.vue';
 import ImportCard from './component/importCard.vue';
 import Download from "/@/utils/download";
+import { DICT_TYPE } from '/@/utils/dict';
 const addCard = ref();
 const editCard = ref();
 const importCard = ref();

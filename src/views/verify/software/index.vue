@@ -41,14 +41,21 @@
 				<el-table-column prop="keyPrefix" label="卡密前缀" align="center" />
 				<el-table-column prop="softwareStatus" label="软件状态" align="center">
 					<template #default="scope">
-						<el-tag class="ml-2" type="success" v-if="scope.row.softwareStatus === 1">启用</el-tag>
-						<el-tag class="ml-2" type="danger" v-if="scope.row.softwareStatus === 0">禁用</el-tag>
+            <DictTag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.softwareStatus"/>
 					</template>
 				</el-table-column>
 				<el-table-column prop="multiOnline" label="多开上限" align="center" />
-				<el-table-column prop="isReplace" label="顶号登录" align="center" />
+        <el-table-column prop="isReplace" label="顶号登录" align="center" >
+          <template #default="scope">
+            <DictTag :type="DICT_TYPE.SYS_YES_NO" :value="scope.row.isReplace"/>
+          </template>
+        </el-table-column>
 				<el-table-column prop="heartbeat" label="心跳间隔" align="center" />
-				<el-table-column prop="openTrial" label="开启试用" align="center" />
+        <el-table-column prop="openTrial" label="开启试用" align="center">
+          <template #default="scope">
+            <DictTag :type="DICT_TYPE.SYS_YES_NO" :value="scope.row.openTrial"/>
+          </template>
+        </el-table-column>
 				<el-table-column prop="comment" label="软件备注" align="center" />
 				<el-table-column prop="createdAt" label="创建时间" width="180" align="center" />
 				<el-table-column prop="zip" label="操作" align="center">
@@ -59,7 +66,7 @@
 				</el-table-column>
 			</el-table>
 			<!-- 分页设置-->
-			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" class="mt15" :pager-count="5" :page-sizes="[10, 20, 30, 50]" v-model:current-page="state.queryParams.pageIndex" background v-model:page-size="state.queryParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="state.total"> </el-pagination>
+			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" class="mt15" :pager-count="5" :page-sizes="[10, 20, 30, 50]" v-model:current-page="state.queryParams.pageIndex" background v-model:page-size="state.queryParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="state.total"/>
 		</el-card>
 		<AddSoftware ref="addSoftware" />
 		<EditSoftware ref="editSoftware" />
@@ -75,7 +82,7 @@ import EditSoftware from './component/editSoftware.vue';
 import { ElMessage, ElMessageBox, FormInstance } from 'element-plus';
 import { SoftwareRow } from '/@/types/software';
 import {useStore} from "/@/store";
-
+import { DICT_TYPE } from '/@/utils/dict'
 const addSoftware = ref();
 const editSoftware = ref();
 const store = useStore();
