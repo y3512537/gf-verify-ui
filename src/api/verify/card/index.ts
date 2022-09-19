@@ -48,7 +48,7 @@ export function freezeCard(params:any) {
 // 卡密解绑
 export function unbindCard(params:any) {
 	return request({
-		url: '/api/v1/card/unbind',
+		url: '/api/v1/card/unbind-all',
 		method: 'put',
 		data: params,
 	})
