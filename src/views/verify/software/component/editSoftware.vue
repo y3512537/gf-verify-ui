@@ -5,14 +5,19 @@
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="软件名称" prop="softwareName">
-							<el-input v-model="ruleForm.softwareName" placeholder="请输入软件名称" clearable></el-input>
+							<el-input v-model="ruleForm.softwareName" placeholder="请输入软件名称" clearable/>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="卡密前缀">
-							<el-input v-model="ruleForm.keyPrefix" placeholder="请输入卡密前缀" clearable></el-input>
+							<el-input v-model="ruleForm.keyPrefix" placeholder="请输入卡密前缀" clearable/>
 						</el-form-item>
 					</el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+            <el-form-item label="卡密长度">
+              <el-input-number v-model="ruleForm.cardLength" :min="10" :max="32" />
+            </el-form-item>
+          </el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="软件状态">
 							<el-switch v-model="ruleForm.softwareStatus" active-text="启用" inactive-text="禁用" :active-value="1" :inactive-value="0"/>
